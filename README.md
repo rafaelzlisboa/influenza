@@ -1,36 +1,23 @@
 # influenza
 
-FIXME: description
+Calculate the most influential people in a social network*.
 
-## Installation
+It reads a social network graph from a file located at `resources/edge`.
 
-Download from http://example.com/FIXME.
 
-## Usage
 
-FIXME: explanation
+\* might also be used to identify the more efficient people to spread a zombie virus.
 
-    $ java -jar influenza-0.1.0-standalone.jar [args]
 
-## Options
+## Running the tests
 
-FIXME: listing of options this app accepts.
+To run the tests:
 
-## Examples
+    $ lein test
 
-...
+To listen and run the tests on every file change:
 
-### Bugs
+    $ lein autoexpect
 
-...
 
-### Any Other Sections
-### That You Think
-### Might be Useful
 
-## License
-
-Copyright © 2015 FIXME
-
-Distributed under the Eclipse Public License either version 1.0 or (at
-your option) any later version.
