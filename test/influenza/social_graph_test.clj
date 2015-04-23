@@ -8,6 +8,7 @@
   (-> {}
       (add-connection [:1 :2])))
 
+
 ;; 1  7
 ;; |\
 ;; 2 3-6
@@ -21,6 +22,7 @@
                         (add-connection [:3 :5])
                         (add-connection [:3 :6])
                         (add-connection [:5 :6])))
+
 
 (expect 0 (social-distance nil))
 (expect 0 (social-distance [:1]))
