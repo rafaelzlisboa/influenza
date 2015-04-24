@@ -15,10 +15,12 @@
       (slurp)))
 
 (def influenza-social-graph (atom (load-social-graph file-data)))
+(def influenza-frauds (atom []))
 
 (defroutes app-routes
   (GET "/social-influence-ranking" []
-       (response (rank-influence @influenza-social-graph)))
+       (response (rank-influence @influenza-social-graph
+                                 @influenza-frauds)))
   (GET "/persons/:id" [id] (response {:id id
                                       :connections (@influenza-social-graph (keyword id))}))
   (POST "/persons" request
@@ -31,6 +33,9 @@
                      (:connections person)))
           {:status 201
            :headers {"Location" (str "/persons/" (:id person))}}))
+  (POST "/persons/:id/fraudulent" [id]
+        (swap! influenza-frauds conj id)
+        {:status 200})
   (GET "/" []
        (response {:message "welcome to influenza! check the README.md for more info"}))
   (route/resources "/")

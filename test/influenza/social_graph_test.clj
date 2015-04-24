@@ -37,3 +37,7 @@
 
 
 (expect [:3 1/6] (first (rank-influence a-social-graph)))
+
+(let [fraudulents [:3]]
+  (expect [:3 0] (last (rank-influence a-social-graph
+                                       fraudulents))))

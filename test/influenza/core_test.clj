@@ -34,4 +34,12 @@
   (expect {"id" "1"
            "connections" ["3" "2"]} (json/parse-string (:body response))))
 
+;; POST /persons/:id/fraudulent tags a person as fraudulent
+;; influence score should become 0
+(let [response-tag-fraudulent (app (request :post "/persons/1/fraudulent"))]
+  (expect 200 (:status response-tag-fraudulent))
 
+  (let [response-new-ranking (app (request :get "/social-influence-ranking"))
+        new-ranking (json/parse-string
+                      (:body response-new-ranking))]
+    (expect ["1" 0] (last new-ranking))))

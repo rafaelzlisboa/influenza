@@ -46,11 +46,16 @@
     (if (zero? farness) 0
       (/ 1 farness))))
 
-(defn rank-influence [social-graph]
-  (let [scores (zipmap (keys social-graph)
-                       (map #(closeness social-graph %)
-                            (keys social-graph)))]
-    (sort-by val > scores)))
+(defn process-frauds [scores frauds]
+  (reduce #(assoc %1 %2 0) scores frauds))
+
+(defn rank-influence
+  ([social-graph] (rank-influence social-graph []))
+  ([social-graph frauds]
+    (let [scores (zipmap (keys social-graph)
+                         (map #(closeness social-graph %)
+                              (keys social-graph)))]
+      (sort-by val > (process-frauds scores frauds)))))
 
 (defn- process-line [line]
   (map keyword (string/split line #" ")))
