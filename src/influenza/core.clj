@@ -33,7 +33,7 @@
           {:status 201
            :headers {"Location" (str "/persons/" (:id person))}}))
   (POST "/persons/:id/fraudulent" [id]
-        (swap! influenza-frauds conj id)
+        (swap! influenza-frauds conj (keyword id))
         {:status 200})
   (GET "/" []
        (response {:message "welcome to influenza! check the README.md for more info"}))
