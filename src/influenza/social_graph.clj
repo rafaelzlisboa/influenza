@@ -22,13 +22,8 @@
 (defn- shortest-path [graph start end]
   (bfs graph (conj PersistentQueue/EMPTY (list start)) #(= %1 end) #{}))
 
-(defn- add-person [graph person]
-  (assoc graph person []))
-
 (defn add-connection
   [graph [person-this person-that]]
-  (if (nil? (graph person-this)) (add-person graph person-this))
-  (if (nil? (graph person-that)) (add-person graph person-that))
   (-> graph
       (update-in [person-this] conj person-that)
       (update-in [person-that] conj person-this)))

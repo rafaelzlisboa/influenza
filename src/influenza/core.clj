@@ -5,7 +5,6 @@
   (:require [compojure.handler :as handler]
             [compojure.route :as route]
             [ring.util.response :refer [response]]
-            [compojure.response :as response]
             [clojure.java.io :as io]
             [influenza.social-graph :refer :all]))
 

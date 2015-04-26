@@ -1,7 +1,7 @@
 # influenza
 
 Calculate the most influential people in a social network\*.
-The solution is built in `clojure`. It uses `composure` for http routing, `expectations` for the tests and `leiningen` as the task runner.
+The solution is built in `clojure`. It uses `compojure` for http routing, `expectations` for the tests and `leiningen` as the task runner.
 It reads a social network graph from a file located at `resources/edges` on startup.
 
 
