@@ -11,14 +11,16 @@ It reads a social network graph from a file located at `resources/edges` on star
 
 ## Getting started
 
-Download the project dependencies using:
+Before you start, you will need (Leiningen)[http://leiningen.org/] and a version of the Java Development Kit (JDK) installed.
+
+Then, download the project dependencies using:
 
     $ lein deps
 
 
 ## Interacting with the service
 
-First of all, start the service with:
+You can start the service with:
 
     $ lein ring server
 
@@ -52,4 +54,3 @@ To run the tests:
 To listen and run the tests on every file change:
 
     $ lein autoexpect
-
