@@ -1,7 +1,7 @@
 (ns influenza.social-graph-test
   (:require [expectations :refer :all]
             [influenza.social-graph :refer :all]
-            [clojure.string]))
+            [influenza.closeness :refer :all]))
 
 (expect {:1 [:2]
          :2 [:1]}
@@ -32,15 +32,9 @@
                         (add-connection [:3 :6])
                         (add-connection [:5 :6])))
 
-(expect 1/9 (closeness a-social-graph :6))
-(expect 0 (closeness a-social-graph :7))
-
 (expect [:3 1/6] (first (rank-influence a-social-graph)))
 
 (let [fraudulents [:3]
       fraud-aware-scores (rank-influence a-social-graph
                                          fraudulents)]
-  ;; a fraudulent person's score is 0
-  (expect [:3 0] (last fraud-aware-scores))
-  ;; a fraudulent person friend's score is halved
-  (expect (some #{[:6 (/ 1/9 2)]} fraud-aware-scores)))
+  (expect [:3 0] (last fraud-aware-scores)))
