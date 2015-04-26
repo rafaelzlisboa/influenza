@@ -1,4 +1,4 @@
-(ns influenza.frauds
+(ns influenza.score-calc.frauds
   (:require [clojure.set :as set])
   (:gen-class))
 
@@ -18,7 +18,7 @@
 (defn- without [coll1 coll2]
   (filter (complement (into #{} coll2)) coll1))
 
-(defn process-frauds [social-graph scores frauds]
+(defn penalize-frauds [social-graph scores frauds]
   (let [score-zeroed-frauds (reduce zero-score scores frauds)]
     (loop [connection-level 1
            already-penalized frauds

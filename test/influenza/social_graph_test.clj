@@ -1,7 +1,7 @@
 (ns influenza.social-graph-test
   (:require [expectations :refer :all]
             [influenza.social-graph :refer :all]
-            [influenza.closeness :refer :all]))
+            [influenza.score-calc.closeness :refer :all]))
 
 (expect {:1 [:2]
          :2 [:1]}

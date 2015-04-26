@@ -1,8 +1,8 @@
 (ns influenza.social-graph
   (:gen-class)
   (:require [clojure.string :as string]
-            [influenza.closeness :refer :all]
-            [influenza.frauds :refer :all]))
+            [influenza.score-calc.closeness :refer :all]
+            [influenza.score-calc.frauds :refer :all]))
 
 (defn add-connection
   [graph [person-this person-that]]
@@ -16,7 +16,7 @@
     (let [scores (zipmap (keys social-graph)
                          (map #(closeness social-graph %)
                               (keys social-graph)))]
-      (sort-by val > (process-frauds social-graph scores frauds)))))
+      (sort-by val > (penalize-frauds social-graph scores frauds)))))
 
 (defn- process-line [line]
   (map keyword (string/split line #" ")))

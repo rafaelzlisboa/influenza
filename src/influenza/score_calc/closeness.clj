@@ -1,6 +1,6 @@
-(ns influenza.closeness
-  (:gen-class)
-  (:import clojure.lang.PersistentQueue))
+(ns influenza.score-calc.closeness
+  (:import clojure.lang.PersistentQueue)
+  (:gen-class))
 
 (defn- new-paths [graph path node visited]
   (filter #(not (visited (first %)))

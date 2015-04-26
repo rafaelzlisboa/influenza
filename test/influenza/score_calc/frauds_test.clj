@@ -1,7 +1,7 @@
-(ns influenza.frauds-test
+(ns influenza.score-calc.frauds-test
   (:require [expectations :refer :all]
             [influenza.social-graph :refer :all]
-            [influenza.frauds :refer :all]))
+            [influenza.score-calc.frauds :refer :all]))
 
 
 ;; 1-2-3f
@@ -14,9 +14,9 @@
                   :4 20 :5 30})
 (def fraudulents [:3])
 
-(let [new-scores (process-frauds a-social-graph
-                                 some-scores
-                                 fraudulents)]
+(let [new-scores (penalize-frauds a-social-graph
+                                  some-scores
+                                  fraudulents)]
   ;; a fraudulent person's score is 0
   (expect 0 (new-scores :3))
 
