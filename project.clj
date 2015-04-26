@@ -7,7 +7,5 @@
                  [expectations "2.1.1"]
                  [ring/ring-mock "0.2.0"]]
   :ring {:handler influenza.core/app}
-  :plugins [[lein-gorilla "0.3.4"]
-            [lein-autoexpect "1.0"]
-            [lein-ancient "0.6.6"]
+  :plugins [[lein-autoexpect "1.0"]
             [lein-ring "0.8.7"]])
