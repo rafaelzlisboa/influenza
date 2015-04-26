@@ -8,6 +8,15 @@
   (-> {}
       (add-connection [:1 :2])))
 
+(expect {:1 [:3 :2]
+         :2 [:1]
+         :3 [:1]} (load-social-graph "1 2\n3 1\n"))
+
+(expect 0 (social-distance nil))
+(expect 0 (social-distance [:1]))
+(expect 1 (social-distance [:1 :2]))
+(expect 2 (social-distance [:1 :2 :3]))
+
 
 ;; 1  7
 ;; |\
@@ -23,18 +32,8 @@
                         (add-connection [:3 :6])
                         (add-connection [:5 :6])))
 
-
-(expect 0 (social-distance nil))
-(expect 0 (social-distance [:1]))
-(expect 1 (social-distance [:1 :2]))
-(expect 2 (social-distance [:1 :2 :3]))
-
 (expect 1/9 (closeness a-social-graph :6))
-
-(expect {:1 [:3 :2]
-         :2 [:1]
-         :3 [:1]} (load-social-graph "1 2\n3 1\n"))
-
+(expect 0 (closeness a-social-graph :7))
 
 (expect [:3 1/6] (first (rank-influence a-social-graph)))
 
