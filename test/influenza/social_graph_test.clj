@@ -37,6 +37,10 @@
 
 (expect [:3 1/6] (first (rank-influence a-social-graph)))
 
-(let [fraudulents [:3]]
-  (expect [:3 0] (last (rank-influence a-social-graph
-                                       fraudulents))))
+(let [fraudulents [:3]
+      fraud-aware-scores (rank-influence a-social-graph
+                                         fraudulents)]
+  ;; a fraudulent person's score is 0
+  (expect [:3 0] (last fraud-aware-scores))
+  ;; a fraudulent person friend's score is halved
+  (expect (some #{[:6 (/ 1/9 2)]} fraud-aware-scores)))

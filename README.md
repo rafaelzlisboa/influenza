@@ -37,6 +37,11 @@ Once it's running, it will listen for HTTP requests on port 3000. Then, you can:
 
     $ curl -X GET http://localhost:3000/persons/1 | python -m json.tool
 
+- Tag a person as fraudulent
+
+    $ curl -X POST http://localhost:3000/persons/1/fraudulent
+
+
 
 ## Running the tests
 

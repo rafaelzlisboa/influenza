@@ -46,8 +46,35 @@
     (if (zero? farness) 0
       (/ 1 farness))))
 
-(defn process-frauds [scores frauds]
-  (reduce #(assoc %1 %2 0) scores frauds))
+(defn- all-connections-from [social-graph persons]
+  (remove nil? (flatten (for [person persons] (social-graph person)))))
+
+(defn- zero-score [scores person]
+  (assoc scores person 0))
+
+(defn- exp [base exp] (apply * (repeat exp base)))
+
+(defn- decrease-score-fn [level]
+  (let [fraud-coefficient (- 1 (exp 1/2 level))]
+    (fn [scores person]
+      (update-in scores [person] * fraud-coefficient))))
+
+(defn process-frauds [social-graph scores frauds]
+  (let [score-zeroed-frauds (reduce zero-score scores frauds)]
+    (loop [connection-level 1
+           this-level-connections (all-connections-from social-graph frauds)
+           current-scores (reduce (decrease-score-fn connection-level)
+                                  score-zeroed-frauds
+                                  this-level-connections)]
+      (if (and (seq this-level-connections)
+               (< 10 connection-level))
+        (recur
+          (inc connection-level)
+          (all-connections-from social-graph this-level-connections)
+          (reduce (decrease-score-fn connection-level)
+                   current-scores
+                   this-level-connections))
+        current-scores))))
 
 (defn rank-influence
   ([social-graph] (rank-influence social-graph []))
@@ -55,7 +82,7 @@
     (let [scores (zipmap (keys social-graph)
                          (map #(closeness social-graph %)
                               (keys social-graph)))]
-      (sort-by val > (process-frauds scores frauds)))))
+      (sort-by val > (process-frauds social-graph scores frauds)))))
 
 (defn- process-line [line]
   (map keyword (string/split line #" ")))
