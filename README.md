@@ -22,7 +22,7 @@ Then, download the project dependencies using:
 
 You can start the service with:
 
-    $ lein ring server
+    $ lein ring server-headless
 
 Once it's running, it will listen for HTTP requests on port 3000. Then, you can:
 
